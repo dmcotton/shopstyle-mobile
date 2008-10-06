@@ -4,10 +4,10 @@
 		<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta names="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-
 		<link rel="Stylesheet" href="/css/render.css" />
 		<script type="text/javascript" src="/js/logic.js"></script>
-
+		<script src="http://media.onsugar.com/static/js/scriptaculous-1.8/prototype.js" type="text/javascript"></script>
+	    <script src="http://media.onsugar.com/static/js/scriptaculous-1.8/scriptaculous.js" type="text/javascript"></script>
 		<style>
 			*[dir=rtl] #iHeader .iTab {margin-left:40px;margin-right:15px }
 			#iHeader .iTab {margin-right:55px}
@@ -63,6 +63,43 @@
 			eval(a.getElementsByTagName("script")[0].firstChild.nodeValue);
 */
 		</script>
+		<script type="text/javascript">
+			product = new Template('<li><a href="#_Article"><img style="background: #D6DCE6 url(#{thumb}) center no-repeat;" src="/img/blank.gif" class="iFull" /><em>#{brand}</em><big>#{name}<small>#{priceLabel}</small></big></a></li>');
+			
+			shopstyle = {
+				'waClothing':{
+					'cat':'womens-clothing',
+					'count':50,
+					'currentPage':0
+				}
+			}
+			
+			function loadProducts(key) {
+				new Ajax.Request('/ssapi', {
+	                method: 'post',
+	                parameters: {
+	                  cat: shopstyle[key].cat,
+	                  count: shopstyle[key].count,
+					  filters: ''
+	                },
+	                onSuccess: function(transport) {
+	                    results = eval('('+transport.responseText+')');
+						console.log(results);
+						$('products_' + key).update('');
+						results.products.each(function(result){
+							$('products_' + key).insert(product.evaluate({
+								name: result.name,
+								brand: result.brandName,
+								priceLabel: result.priceLabel,
+								thumb: result.images[1].url
+							}));
+						});
+	                    //$('results').update('<p>How about this <a href="'+gift.url+'">'+gift.name+' from '+gift.retailer+'</a> ('+gift.priceLabel+')?</p><img src="' + gift.images[2].url + '" /><p>Not '+gifts[i].pronoun+' style? <a href="#" onclick="go(parseInt($(\'recepient\').value));">Try again</a> or <a href="/">start over</a>.</p>'); 
+						
+	                }
+	            });				
+			}
+		</script>
 	</head>
 
 <body -dir="rtl"><div id="WebApp">
@@ -83,7 +120,7 @@
 				<li><a href="Layer/async-tab.xml" rev="async"><span>Async</span></a></li>
 			</ul>
 		</div>
-		<a href="#" class="iBAction iRightButton" onclick="return tabs(0)"><img src="WebApp/Img/less.png" alt="Hide" /></a>
+		<a href="#" class="iBAction iRightButton" onclick="return tabs(0)"><img src="/img/less.png" alt="Hide" /></a>
 	</div>
 
 	<a href="#" id="waBackButton">Back</a>
@@ -112,38 +149,30 @@
 		<div class="iMenu">
 			<h3>Shopping</h3>
 			<ul class="iArrow iShop">
-				<!--<li><a href="#_Article">
-					<img src="WebApp/Img/blank.gif" class="iFull" />
-					<em>Alphabet</em>
-					<big>This is Alphabet
-						<small><img src="Img/stars.png" style="margin:4px"/> 3 reviews</small>
-					</big>
-				</a></li>-->
-				<li><a href="#_Store"><img src="Img/ico.png" width="29" height="29" /><span>More</span>Clothing</a></li>
-				<li><a href="#_Store"><img src="Img/ico.png" width="29" height="29" /><span>More</span>Bags</a></li>
-				<li><a href="#_Store"><img src="Img/ico.png" width="29" height="29" /><span>More</span>Shoes</a></li>
-				<li><a href="#_Store"><img src="Img/ico.png" width="29" height="29" /><span>More</span>Beauty</a></li>				
+				<li><a href="#_Clothing" onclick="loadProducts('waClothing');"><span>More</span>Clothing</a></li>
+				<li><a href="#_Store"><span>More</span>Bags</a></li>
+				<li><a href="#_Store"><span>More</span>Shoes</a></li>
+				<li><a href="#_Store"><span>More</span>Beauty</a></li>				
 			</ul>
 		</div>
 		<div class="iFooter">
-			&copy;2008 Philip Bjerknes, all rights reserved.<br />Released under New-BSD license.<br/>
+			&copy;2008 Philip Bjerknes, all rights reserved.<br />Released under <a href="/static/license.txt">DWTFYWIT license</a>.<br/>
 		</div>
 	</div>
 
-	<div class="iLayer" id="waStore" title="My Store">
+	<div class="iLayer" id="waClothing" title="My Store">
 		<div class="iList">
-			<h2>Shopping</h2>
-			<ul class="iArrow iShop">
+			<h2>Women's Clothing</h2>
+			<ul id="products_waClothing" class="iArrow iShop">
 				<li><a href="#_Article">
-					<img src="WebApp/Img/blank.gif" class="iFull" />
+					<img src="/img/blank.gif" class="iFull" />
 					<em>Great item</em>
 					<big>This is the best ever
 						<small><img src="Img/stars.png" style="margin:4px"/> 3 reviews</small>
 					</big>
 				</a></li>
-
 				<li><a href="#_Article">
-					<img src="WebApp/Img/blank.gif" class="iFull" />
+					<img src="/img/blank.gif" class="iFull" />
 					<em>WebApp.Net</em>
 					<big>The best webapp micro-framework
 						<small><img src="Img/stars.png" style="margin:4px"/> 5 reviews</small>
@@ -152,8 +181,32 @@
 				<li class="iMore"><a href="#_Article" title="Let's try...">More (does nothing)</a></li>
 			</ul>
 		</div>
-
 	</div>
+
+	<div class="iLayer" id="waStore" title="My Store">
+		<div class="iList">
+			<h2>Shopping</h2>
+			<ul class="iArrow iShop">
+				<li><a href="#_Article">
+					<img src="/img/blank.gif" class="iFull" />
+					<em>Great item</em>
+					<big>This is the best ever
+						<small><img src="Img/stars.png" style="margin:4px"/> 3 reviews</small>
+					</big>
+				</a></li>
+
+				<li><a href="#_Article">
+					<img src="/img/blank.gif" class="iFull" />
+					<em>WebApp.Net</em>
+					<big>The best webapp micro-framework
+						<small><img src="Img/stars.png" style="margin:4px"/> 5 reviews</small>
+					</big>
+				</a></li>
+				<li class="iMore"><a href="#_Article" title="Let's try...">More (does nothing)</a></li>
+			</ul>
+		</div>
+	</div>
+
 	<div class="iLayer" id="waResult" title="Result">
 		<a href="#" rel="action" onclick="return WA.Form('form1')" class="iButton iBClassic">Search</a>
 

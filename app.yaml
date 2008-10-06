@@ -10,5 +10,11 @@ handlers:
 - url: /js
   static_dir: js
 
+- url: /img
+  static_dir: img
+
+- url: /static
+  static_dir: static
+
 - url: .*
   script: django_bootstrap.py
