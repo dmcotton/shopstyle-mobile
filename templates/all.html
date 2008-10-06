@@ -1,0 +1,281 @@
+<html>
+	<head>
+		<title>WebApp.Net Demo</title>
+		<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta names="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<link rel="Stylesheet" href="/css/render.css" />
+		<script type="text/javascript" src="/js/logic.js"></script>
+
+		<style>
+			*[dir=rtl] #iHeader .iTab {margin-left:40px;margin-right:15px }
+			#iHeader .iTab {margin-right:55px}
+
+			.iPanel label + input[type] {
+				padding-left:95px;
+			}
+
+			*[dir=rtl] .iPanel label + input[type] {
+				padding-right:95px;
+			}
+
+/* Fix to test in firefox
+			.iPanel label + input[type] {
+				padding-bottom:0;
+				padding-top:0;
+				top:-16px;
+			}
+*/
+
+			.iTab li { width:33%}
+			.iTab li:first-child { width:34%}
+
+			.msg {
+				background-color:#080;
+				color:#fff;
+				font-size:11px;
+				padding:5px;
+				-webkit-border-radius:4px;
+				margin:8px;
+			}
+			.err {
+				background-color:#800;
+				color:#fff;
+				font-size:11px;
+				padding:5px;
+				-webkit-border-radius:4px;
+				margin:8px;
+			}
+			
+		</style>
+		<script type="text/javascript">
+
+			function tabs(s) {
+				WA.Header(!s, "tab1");
+				return false;
+			}
+
+/*
+			var a = document.createElement("div");
+			a.innerHTML = "<s" + "cript text='text/javascript'> alert('ok') </scr" + "ipt>";
+
+			eval(a.getElementsByTagName("script")[0].firstChild.nodeValue);
+*/
+		</script>
+	</head>
+
+<body -dir="rtl"><div id="WebApp">
+
+<div id="loader" class="iItem" style="padding:10px 5px;font-weight:bold;font-size:12px;text-align:center;">
+	<div style="font-size:20px">
+		<a href="#" style="display:block;border-width: 0 12px;line-height:45px;-webkit-border-image: url(WebApp/Design/Img/button-b-black.png) 0 12 0 12;margin:10px;color:white;text-decoration:none;text-align:center;text-shadow:#000 1px -1px 0;font-weight:bold">Test</a>
+		<a href="#" style="display:block;border-width: 0 12px;line-height:45px;-webkit-border-image: url(WebApp/Design/Img/button-b-white.png) 0 12 0 12;margin:10px;color:black;text-decoration:none;text-align:center;text-shadow:#fff 1px 1px 0;font-weight:bold">Test</a>
+		<a href="#" style="display:block;border-width: 0 12px;line-height:45px;-webkit-border-image: url(WebApp/Design/Img/button-b-red.png) 0 12 0 12;margin:10px;color:white;text-decoration:none;text-align:center;text-shadow:rgba(0,0,0,0.2) 1px -1px 0;font-weight:bold">Test</a>
+	</div>
+</div>
+<div id="iHeader">
+	<div class="iItem" id="tab1">
+		<div class="iTab">
+			<ul id="list">
+				<li><a href="#">Simple</a></li>
+				<li><a href="#">Image</a></li>
+				<li><a href="Layer/async-tab.xml" rev="async"><span>Async</span></a></li>
+			</ul>
+		</div>
+		<a href="#" class="iBAction iRightButton" onclick="return tabs(0)"><img src="WebApp/Img/less.png" alt="Hide" /></a>
+	</div>
+
+	<a href="#" id="waBackButton">Back</a>
+	<a href="#" id="waHomeButton">Home</a>
+	<a href="#" onclick="return WA.HideBar()"><span id="waHeadTitle">Demo Home</span></a>
+
+	<form action="Layer/TopForm.php#_Result">
+		<div class="iForm" id="form1">
+			<a href="#" rel="action" id="gogo" class="iButton iBAction">Search</a>
+			<a href="#" rel="back" class="iButton iBClassic">Cancel</a>
+	
+			<fieldset class="attach">
+				<legend>Search</legend>
+				<input type="search" name="search" placeholder="Search term here" />
+			</fieldset>
+		</div>
+	</form>
+
+</div>
+
+<div id="iGroup">
+	<div id="iLoader">Loading, please wait...</div>
+
+	<div class="iLayer" id="waHome" title="Home">
+		<a href="#" rel="action" onclick="return WA.Form('form1')" class="iButton iBClassic">Search</a>
+		<div class="iMenu">
+			<h3>Simple Samples</h3>
+			<ul class="iArrow">
+				<li><a href="#_Lists">Lists &amp; tabs</a></li>
+				<li><a href="Layer/List.php#_Async" rev="async:np">Asynchronous list</a></li>
+				<li><a href="#_Form">Form</a></li>
+				<li><a href="#_Media"><span>Video and audio</span> Media</a></li>
+				<li><a href="Layer/async-create.xml#_New" rev="async">Dynamic Layer</a></li>
+			</ul>
+			<h3>Shopping</h3>
+			<ul class="iArrow iShop">
+				<li><a href="#_Article">
+					<img src="WebApp/Img/blank.gif" class="iFull" />
+					<em>Alphabet</em>
+					<big>This is Alphabet
+						<small><img src="Img/stars.png" style="margin:4px"/> 3 reviews</small>
+					</big>
+				</a></li>
+				<li><a href="#_Store"><img src="Img/ico.png" width="29" height="29" /><span>More</span>My Store</a></li>
+			</ul>
+		</div>
+		<div class="iFooter">
+			&copy;2008 Chrilith, all rights reserved.<br />Released under New-BSD license.<br/>
+		</div>
+	</div>
+
+	<div class="iLayer" id="waStore" title="My Store">
+		<div class="iList">
+			<h2>Shopping</h2>
+			<ul class="iArrow iShop">
+				<li><a href="#_Article">
+					<img src="WebApp/Img/blank.gif" class="iFull" />
+					<em>Great item</em>
+					<big>This is the best ever
+						<small><img src="Img/stars.png" style="margin:4px"/> 3 reviews</small>
+					</big>
+				</a></li>
+
+				<li><a href="#_Article">
+					<img src="WebApp/Img/blank.gif" class="iFull" />
+					<em>WebApp.Net</em>
+					<big>The best webapp micro-framework
+						<small><img src="Img/stars.png" style="margin:4px"/> 5 reviews</small>
+					</big>
+				</a></li>
+				<li class="iMore"><a href="#_Article" title="Let's try...">More (does nothing)</a></li>
+			</ul>
+		</div>
+
+	</div>
+	<div class="iLayer" id="waResult" title="Result">
+		<a href="#" rel="action" onclick="return WA.Form('form1')" class="iButton iBClassic">Search</a>
+
+		<div class="iBlock">
+			<h1>Sample Top Form</h1>
+			<p>Your search terms: "<span id="s-res"></span>" return no result. Try another search.</p>
+		</div>
+	</div>
+
+	<div class="iLayer" id="waForm" title="Form Demo">
+		<a href="#" rel="action" class="iButton iBAction" onclick="return WA.Submit('form2')" id="logme">Login</a>
+		<a href="#" rel="back" class="iButton iBClassic" onclick="return WA.Back()">Cancel</a>
+		<form id="form2" action="Layer/Form.php" onsubmit="return WA.Submit(this)">
+
+		<div class="iPanel">
+			<div id="form-res"></div>
+			<fieldset>
+				<legend>Login</legend>
+				<ul>
+					<li><input type="text" name="login" placeholder="Login" /></li>
+					<li><input style="-border:1px solid black;" type="text" name="password" placeholder="Password" /></li>
+					<li><input type="checkbox" name="z" id="cbTest1" class="iToggle" title="YES|NO" checked="checked" value="ok" /> <label for="cbTest1">Keep login</label></li>
+					<li><input type="checkbox" id="cbTest2" class="iToggle" title="YES|NO" /> <label>Keep password</label></li>
+					<li class="iRadio">Choice
+							<label><input type="radio" onclick="alert('t')" name="radio" value="1" /> Radio 1</label>
+							<label><input type="radio" name="radio" value="2" checked="checked" /> Radio 2</label>
+							<label><input type="radio" name="radio" value="3" /> Radio 3</label>
+							<label><input type="radio" name="radio" value="4" /> Radio 4</label>
+							<label><input type="radio" name="radio" value="5" /> Radio 5</label>
+							<label><input type="radio" name="radio" value="6" /> Radio 6</label>
+					</li>
+				</ul>
+			</fieldset>
+			<fieldset>
+				<legend>Contact</legend>
+				<ul>
+					<li><label>First Name</label><input type="text" name="address" /></li>
+					<li><label>Last Name</label><input type="text" name="address" /></li>
+				</ul>
+			</fieldset>
+		</div>
+
+		</form>
+	</div>
+
+	<div class="iLayer" id="waLists" title="Lists Demo">
+		<a href="#" rel="action" class="iButton iBClassic" onclick="return tabs(1)"><img src="WebApp/Img/more.png" alt="More" /></a>
+
+		<div class="iBlock iItem" id="list0">
+			<h1>Simple list info</h1>
+			<p>This will demonstrate the render of a simple list. Use the top right button to show informations about other types.</p>
+		</div>
+		<div class="iBlock iItem" id="list1">
+			<h1>List with image info</h1>
+			<p>This will demonstrate the render of a list with image. Use the top right button to show informations about other types.</p>
+		</div>
+		<div class="iLoader" id="list-loader" style="margin:50px 0">
+			Loading please wait ...
+		</div>
+		<div class="iBlock iItem" id="list2"></div>
+
+		<div class="iMenu">
+			<ul class="iArrow">
+				<li><a href="#_Simple">Simple list</a></li>
+				<li><a href="#_Image">List with image</a></li>
+			</ul>
+			<ul>
+				<li style="text-align:center"><a href="Layer/async-same.xml" rev="async">Replace content</a></li>
+			</ul>
+		</div>		
+	</div>
+
+	<div class="iLayer" id="waSimple" title="Simple List">
+		<div class="iList">
+			<h2>Newer items</h2>
+			<ul class="iArrow">
+				<li><a href="#_Article"><em>List item one with long text and additional info</em><small>Additional item info one with long text and title text</small></a></li>
+				<li><a href="#_Article"><em>List item two</em><small>Additional item info two</small></a></li>
+			</ul>
+			<h2>Older items</h2>
+			<ul class="iArrow">
+				<li><a href="#_Article"><em>List item three</em><small>Additional item info three</small></a></li>
+				<li>This item has no link</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="iLayer" id="waImage" title="List with image">
+		<div class="iList">
+			<ul class="iArrow">
+				<li><a href="#_Article"><img src="Img/image.png" height="29" /><em>List item one</em></a></li>
+				<li><a href="#_Article"><img src="Img/image.png" height="29" /><em>List item two</em></a></li>
+				<li><a href="#_Article"><img src="Img/image.png" height="29" /><em>List item three</em></a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="iLayer" id="waAsync" title="Async List Demo">
+		<div class="iList" id="async-list"></div>
+	</div>
+
+	<div class="iLayer" id="waArticle" title="Async Viewer Demo">
+		<div class="iBlock">
+			<h1>Nothing to Read</h1>
+			<p>No article have been loaded yet. Check asynchronous list to load an article.</p>
+		</div>
+	</div>
+	
+	<div class="iLayer" id="waMedia" title="Media Sample">
+		<div class="iList">
+			<ul class="iArrow">
+				<li><a href="Media/sample.mp3" rev="media"><img src="Img/image.png" height="29"/>MP3 audio file</a></li>
+				<li><a href="Media/sample_iPod.m4v" rev="media"><img src="Img/image.png" height="29"/>iPod sample video</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+</div></body>
+
+</html>
