@@ -17,6 +17,7 @@ from django.conf.urls.defaults import *
 
 urlpatterns = patterns(
     '',
-    (r'^ssapi$', 'views.ssapi'),
+    (r'^sssearch$', 'views.sssearch'),
+    (r'^sscat$', 'views.sscat'),
     (r'^$', 'views.index')
     )

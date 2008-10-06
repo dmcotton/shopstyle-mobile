@@ -35,7 +35,16 @@ def index(request):
   user = users.GetCurrentUser()
   return respond(request, user, 'base')
 
-def ssapi(request):
+def sssearch(request):
+    cat = request.POST['cat']
+    count = request.POST['count']
+    filters = request.POST['filters']
+    user = users.GetCurrentUser()
+    url = "http://www.shopstyle.com/action/apiSearch?fts=jeans&pid=onsugar&format=JSON&min=0&count="+count+"&cat="+cat+filters
+    result = urlfetch.fetch(url)
+    return respond(request,user,'api',{'gifts':result.content})
+
+def sscat(request):
     cat = request.POST['cat']
     count = request.POST['count']
     filters = request.POST['filters']

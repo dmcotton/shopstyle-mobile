@@ -65,37 +65,59 @@
 		</script>
 		<script type="text/javascript">
 			product = new Template('<li><a href="#_Article"><img style="background: #D6DCE6 url(#{thumb}) center no-repeat;" src="/img/blank.gif" class="iFull" /><em>#{brand}</em><big>#{name}<small>#{priceLabel}</small></big></a></li>');
-			
+			category = new Template('<li><a href="#_Products" onclick="loadProducts(\'#{cat}\',\'#{title}\')">#{name}</a></li>')
 			shopstyle = {
-				'waClothing':{
+				'count':150,
+				'Clothing':{
 					'cat':'womens-clothing',
 					'count':50,
-					'currentPage':0
+					'currentPage':0,
+					'categories': [
+						['Dresses','dresses'],
+						['Jackets','jackets'],
+						['Jeans','jeans'],
+						['Outerwear','womens-outerwear'],
+						['Pants','pants'],
+						['Shorts','shorts'],
+						['Skirts','skirts'],
+						['Sweaters','sweaters'],
+						['Tops','womens-tops']
+					]
 				}
 			}
 			
-			function loadProducts(key) {
-				new Ajax.Request('/ssapi', {
+			function loadCategories(key) {
+				$('categories').update('');
+				$A(shopstyle[key].categories).each(function(cat){
+					$('categories').insert(category.evaluate({
+						name:cat[0],
+						cat:cat[1],
+						title:cat[0]
+					}));
+				});
+			}
+			
+			function loadProducts(cat, title) {
+				console.log(title);
+				new Ajax.Request('/sssearch', {
 	                method: 'post',
 	                parameters: {
-	                  cat: shopstyle[key].cat,
-	                  count: shopstyle[key].count,
+	                  cat: cat,
+	                  count: shopstyle.count,
 					  filters: ''
 	                },
 	                onSuccess: function(transport) {
 	                    results = eval('('+transport.responseText+')');
-						console.log(results);
-						$('products_' + key).update('');
+						$('title').update(title);
+						$('products').update('');
 						results.products.each(function(result){
-							$('products_' + key).insert(product.evaluate({
+							$('products').insert(product.evaluate({
 								name: result.name,
 								brand: result.brandName,
 								priceLabel: result.priceLabel,
 								thumb: result.images[1].url
 							}));
 						});
-	                    //$('results').update('<p>How about this <a href="'+gift.url+'">'+gift.name+' from '+gift.retailer+'</a> ('+gift.priceLabel+')?</p><img src="' + gift.images[2].url + '" /><p>Not '+gifts[i].pronoun+' style? <a href="#" onclick="go(parseInt($(\'recepient\').value));">Try again</a> or <a href="/">start over</a>.</p>'); 
-						
 	                }
 	            });				
 			}
@@ -106,9 +128,9 @@
 
 <div id="loader" class="iItem" style="padding:10px 5px;font-weight:bold;font-size:12px;text-align:center;">
 	<div style="font-size:20px">
-		<a href="#" style="display:block;border-width: 0 12px;line-height:45px;-webkit-border-image: url(WebApp/Design/Img/button-b-black.png) 0 12 0 12;margin:10px;color:white;text-decoration:none;text-align:center;text-shadow:#000 1px -1px 0;font-weight:bold">Test</a>
-		<a href="#" style="display:block;border-width: 0 12px;line-height:45px;-webkit-border-image: url(WebApp/Design/Img/button-b-white.png) 0 12 0 12;margin:10px;color:black;text-decoration:none;text-align:center;text-shadow:#fff 1px 1px 0;font-weight:bold">Test</a>
-		<a href="#" style="display:block;border-width: 0 12px;line-height:45px;-webkit-border-image: url(WebApp/Design/Img/button-b-red.png) 0 12 0 12;margin:10px;color:white;text-decoration:none;text-align:center;text-shadow:rgba(0,0,0,0.2) 1px -1px 0;font-weight:bold">Test</a>
+		<a href="#" style="display:block;border-width: 0 12px;line-height:45px;-webkit-border-image: url(WebApp/Design/img/button-b-black.png) 0 12 0 12;margin:10px;color:white;text-decoration:none;text-align:center;text-shadow:#000 1px -1px 0;font-weight:bold">Test</a>
+		<a href="#" style="display:block;border-width: 0 12px;line-height:45px;-webkit-border-image: url(WebApp/Design/img/button-b-white.png) 0 12 0 12;margin:10px;color:black;text-decoration:none;text-align:center;text-shadow:#fff 1px 1px 0;font-weight:bold">Test</a>
+		<a href="#" style="display:block;border-width: 0 12px;line-height:45px;-webkit-border-image: url(WebApp/Design/img/button-b-red.png) 0 12 0 12;margin:10px;color:white;text-decoration:none;text-align:center;text-shadow:rgba(0,0,0,0.2) 1px -1px 0;font-weight:bold">Test</a>
 	</div>
 </div>
 <div id="iHeader">
@@ -147,37 +169,38 @@
 	<div class="iLayer" id="waHome" title="Home">
 		<a href="#" rel="action" onclick="return WA.Form('form1')" class="iButton iBClassic">Search</a>
 		<div class="iMenu">
-			<h3>Shopping</h3>
+			<h3>Women's</h3>
 			<ul class="iArrow iShop">
-				<li><a href="#_Clothing" onclick="loadProducts('waClothing');"><span>More</span>Clothing</a></li>
+				<li><a href="#_Categories" onclick="loadCategories('Clothing');"><span>More</span>Clothing</a></li>
 				<li><a href="#_Store"><span>More</span>Bags</a></li>
 				<li><a href="#_Store"><span>More</span>Shoes</a></li>
 				<li><a href="#_Store"><span>More</span>Beauty</a></li>				
+			</ul>
+			<h3>Men's</h3>
+			<ul class="iArrow iShop">
+				<li><a href="#_Categories" onclick="loadCategories('waClothing');"><span>More</span>Clothing</a></li>
+				<li><a href="#_Store"><span>More</span>Bags</a></li>
+				<li><a href="#_Store"><span>More</span>Shoes</a></li>
 			</ul>
 		</div>
 		<div class="iFooter">
 			&copy;2008 Philip Bjerknes, all rights reserved.<br />Released under <a href="/static/license.txt">DWTFYWIT license</a>.<br/>
 		</div>
 	</div>
-
-	<div class="iLayer" id="waClothing" title="My Store">
+	
+	<div class="iLayer" id="waCategories" title="Browse">
 		<div class="iList">
-			<h2>Women's Clothing</h2>
-			<ul id="products_waClothing" class="iArrow iShop">
-				<li><a href="#_Article">
-					<img src="/img/blank.gif" class="iFull" />
-					<em>Great item</em>
-					<big>This is the best ever
-						<small><img src="Img/stars.png" style="margin:4px"/> 3 reviews</small>
-					</big>
-				</a></li>
-				<li><a href="#_Article">
-					<img src="/img/blank.gif" class="iFull" />
-					<em>WebApp.Net</em>
-					<big>The best webapp micro-framework
-						<small><img src="Img/stars.png" style="margin:4px"/> 5 reviews</small>
-					</big>
-				</a></li>
+			<h2>Pick a category</h2>
+			<ul id="categories" class="iArrow iShop">
+				<li><a href="#_Products"><span>More</span>Bags</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="iLayer" id="waProducts" title="Browse">
+		<div class="iList">
+			<h2 id="title">Women's Clothing</h2>
+			<ul id="products" class="iArrow iShop">
 				<li class="iMore"><a href="#_Article" title="Let's try...">More (does nothing)</a></li>
 			</ul>
 		</div>
@@ -191,7 +214,7 @@
 					<img src="/img/blank.gif" class="iFull" />
 					<em>Great item</em>
 					<big>This is the best ever
-						<small><img src="Img/stars.png" style="margin:4px"/> 3 reviews</small>
+						<small><img src="/img/stars.png" style="margin:4px"/> 3 reviews</small>
 					</big>
 				</a></li>
 
@@ -199,7 +222,7 @@
 					<img src="/img/blank.gif" class="iFull" />
 					<em>WebApp.Net</em>
 					<big>The best webapp micro-framework
-						<small><img src="Img/stars.png" style="margin:4px"/> 5 reviews</small>
+						<small><img src="/img/stars.png" style="margin:4px"/> 5 reviews</small>
 					</big>
 				</a></li>
 				<li class="iMore"><a href="#_Article" title="Let's try...">More (does nothing)</a></li>
@@ -264,8 +287,8 @@
 	<div class="iLayer" id="waMedia" title="Media Sample">
 		<div class="iList">
 			<ul class="iArrow">
-				<li><a href="Media/sample.mp3" rev="media"><img src="Img/image.png" height="29"/>MP3 audio file</a></li>
-				<li><a href="Media/sample_iPod.m4v" rev="media"><img src="Img/image.png" height="29"/>iPod sample video</a></li>
+				<li><a href="Media/sample.mp3" rev="media"><img src="/img/image.png" height="29"/>MP3 audio file</a></li>
+				<li><a href="Media/sample_iPod.m4v" rev="media"><img src="/img/image.png" height="29"/>iPod sample video</a></li>
 			</ul>
 		</div>
 	</div>
