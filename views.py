@@ -40,7 +40,7 @@ def sssearch(request):
     count = request.POST['count']
     filters = request.POST['filters']
     user = users.GetCurrentUser()
-    url = "http://www.shopstyle.com/action/apiSearch?fts=jeans&pid=onsugar&format=JSON&min=0&count="+count+"&cat="+cat+filters
+    url = "http://www.shopstyle.com/action/apiSearch?pid=onsugar&format=JSON&min=0&count="+count+"&cat="+cat+filters
     result = urlfetch.fetch(url)
     return respond(request,user,'api',{'gifts':result.content})
 
@@ -49,6 +49,6 @@ def sscat(request):
     count = request.POST['count']
     filters = request.POST['filters']
     user = users.GetCurrentUser()
-    url = "http://www.shopstyle.com/action/apiSearch?fts=jeans&pid=onsugar&format=JSON&min=0&count="+count+"&cat="+cat+filters
+    url = "http://www.shopstyle.com/action/apiSearch?pid=onsugar&format=JSON&min=0&count="+count+"&cat="+cat+filters
     result = urlfetch.fetch(url)
     return respond(request,user,'api',{'gifts':result.content})

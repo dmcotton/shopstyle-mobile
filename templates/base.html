@@ -67,10 +67,9 @@
 			product = new Template('<li><a href="#_Article"><img style="background: #D6DCE6 url(#{thumb}) center no-repeat;" src="/img/blank.gif" class="iFull" /><em>#{brand}&nbsp;</em><big>#{name}<small>#{priceLabel}</small></big></a></li>');
 			category = new Template('<li><a href="#_Products" onclick="loadProducts(\'#{cat}\',\'#{title}\')">#{name}</a></li>')
 			shopstyle = {
-				'count':150,
+				'count':300,
 				'Clothing':{
 					'cat':'womens-clothing',
-					'count':50,
 					'currentPage':0,
 					'categories': [
 						['Dresses','dresses'],
@@ -83,6 +82,48 @@
 						['Sweaters','sweaters'],
 						['Tops','womens-tops']
 					]
+				},
+				'Bags':{
+				  'cat':'handbags',
+          'currentPage':0,
+          'categories':[
+            ['Backpacks','backpacks'],
+            ['Clutches','clutches'],
+            ['Evening','evening-handbags'],
+            ['Hobos','hobo-bags'],
+            ['Satchels','satchels'],
+            ['Shoulder','shoulder-bags'],
+            ['Totes','tote-bags']
+          ]
+				},
+				'Shoes':{
+				  'cat':'womens-shoes',
+				  'currentPage':0,
+				  'categories':[
+				    ['Athletic','shoes-athletic'],
+            ['Boots','boots'],
+            ['Evening','evening-shoes'],
+            ['Flats','flats'],
+            ['Mules & Clogs','mules-and-clogs'],
+            ['Platforms','platforms'],
+            ['Pumps','pumps'],
+            ['Sandals','sandals'],
+            ['Wedges','wedges']
+				  ]
+				},
+				'Accessories':{
+				  'cat':'womens-accessories',
+				  'currentPage':0,
+				  'categories':[
+				    ['Belts','belts'],
+            ['Gloves','gloves'],
+            ['Hair Accessories','hair-accessories'],
+            ['Hats','hats'],
+            ['Jewelry','jewelry'],
+            ['Scarves & Wraps','scarves'],
+            ['Sunglasses','sunglasses'],
+            ['Wallets','wallets']
+				  ]
 				}
 			}
 			
@@ -104,7 +145,7 @@
 	                parameters: {
 	                  cat: cat,
 	                  count: shopstyle.count,
-					  filters: ''
+					          filters: ''
 	                },
 	                onSuccess: function(transport) {
 	                    results = eval('('+transport.responseText+')');
@@ -172,15 +213,9 @@
 			<h3>Women's</h3>
 			<ul class="iArrow iShop">
 				<li><a href="#_Categories" onclick="loadCategories('Clothing');"><span>More</span>Clothing</a></li>
-				<li><a href="#_Store"><span>More</span>Bags</a></li>
-				<li><a href="#_Store"><span>More</span>Shoes</a></li>
-				<li><a href="#_Store"><span>More</span>Beauty</a></li>				
-			</ul>
-			<h3>Men's</h3>
-			<ul class="iArrow iShop">
-				<li><a href="#_Categories" onclick="loadCategories('waClothing');"><span>More</span>Clothing</a></li>
-				<li><a href="#_Store"><span>More</span>Bags</a></li>
-				<li><a href="#_Store"><span>More</span>Shoes</a></li>
+				<li><a href="#_Categories" onclick="loadCategories('Bags');"><span>More</span>Bags</a></li>
+				<li><a href="#_Categories" onclick="loadCategories('Shoes');"><span>More</span>Shoes</a></li>
+				<li><a href="#_Categories" onclick="loadCategories('Accessories');"><span>More</span>Accessories</a></li>				
 			</ul>
 		</div>
 		<div class="iFooter">
