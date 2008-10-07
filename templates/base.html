@@ -64,8 +64,10 @@
 */
 		</script>
 		<script type="text/javascript">
-			product = new Template('<li><a href="#_Article"><img style="background: #D6DCE6 url(#{thumb}) center no-repeat;" src="/img/blank.gif" class="iFull" /><em>#{brand}&nbsp;</em><big>#{name}<small>#{priceLabel}</small></big></a></li>');
-			category = new Template('<li><a href="#_Products" onclick="loadProducts(\'#{cat}\',\'#{title}\')">#{name}</a></li>')
+		  results = [];
+			product = new Template('<li><a href="#_Product" onclick="loadStyle(#{index})"><img style="background: #D6DCE6 url(#{thumb}) center no-repeat;" src="/img/blank.gif" class="iFull" /><em>#{brand}&nbsp;</em><big>#{name}<small>#{priceLabel}</small></big></a></li>');
+			category = new Template('<li><a href="#_Products" onclick="loadProducts(\'#{cat}\',\'#{title}\')">#{name}</a></li>');
+			// we don't want all of the SS categories, so let's narrow it down
 			shopstyle = {
 				'count':100,
 				'Clothing':{
@@ -138,6 +140,10 @@
 				});
 			}
 			
+			function loadStyle(index) {
+			  $('product').insert('this is '+results.products[index].name);
+			}
+			
 			function loadProducts(cat, title) {
 				console.log(title);
 				new Ajax.Request('/sssearch', {
@@ -149,16 +155,19 @@
 	                },
 	                onSuccess: function(transport) {
 	                    results = eval('('+transport.responseText+')');
-						$('title').update(title);
-						$('products').update('');
-						results.products.each(function(result){
-							$('products').insert(product.evaluate({
-								name: result.name,
-								brand: result.brandName,
-								priceLabel: result.priceLabel,
-								thumb: result.images[1].url
-							}));
-						});
+          						$('title').update(title);
+          						$('products').update('');
+          						var i = 0;
+          						results.products.each(function(result){
+            							$('products').insert(product.evaluate({
+            								name: result.name,
+            								brand: result.brandName,
+            								priceLabel: result.priceLabel,
+            								thumb: result.images[1].url,
+            								index: i
+            							}));
+            					});
+            					i++;
 	                }
 	            });				
 			}
@@ -236,6 +245,15 @@
 		<div class="iList">
 			<h2 id="title">Women's Clothing</h2>
 			<ul id="products" class="iArrow iShop">
+				<li class="iMore"><a href="#_Article" title="Let's try...">More (does nothing)</a></li>
+			</ul>
+		</div>
+	</div>
+	
+	<div class="iLayer" id="waProduct" title="Browse">
+		<div class="iList">
+			<h2 id="name">&nbsp;</h2>
+			<ul id="product" class="iArrow iShop">
 				<li class="iMore"><a href="#_Article" title="Let's try...">More (does nothing)</a></li>
 			</ul>
 		</div>
