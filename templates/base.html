@@ -147,7 +147,6 @@
 			}
 			
 			function loadProducts(cat, title) {
-				console.log(title);
 				new Ajax.Request('/sssearch', {
 	                method: 'post',
 	                parameters: {
@@ -168,8 +167,8 @@
             								thumb: result.images[1].url,
             								index: i
             							}));
+            							i++;
             					});
-            					i++;
 	                }
 	            });				
 			}
