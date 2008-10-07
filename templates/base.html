@@ -141,7 +141,9 @@
 			}
 			
 			function loadStyle(index) {
-			  $('product').insert('this is '+results.products[index].name);
+			  style = results.products[index];
+			  $('name').update(style.name);
+			  $('product').update('<img src="'+style.images[2].url+'" /><br /><br /><a href="'+style.url+'">'+style.priceLabel+' at '+style.retailer+'</a><br /><br />'+style.description);
 			}
 			
 			function loadProducts(cat, title) {
@@ -243,43 +245,17 @@
 
 	<div class="iLayer" id="waProducts" title="Browse">
 		<div class="iList">
-			<h2 id="title">Women's Clothing</h2>
+			<h2 id="title">&nbsp;</h2>
 			<ul id="products" class="iArrow iShop">
-				<li class="iMore"><a href="#_Article" title="Let's try...">More (does nothing)</a></li>
+				<li class="iMore"><a href="#_Article" title="Let's try...">&nbsp;</a></li>
 			</ul>
 		</div>
 	</div>
 	
-	<div class="iLayer" id="waProduct" title="Browse">
-		<div class="iList">
-			<h2 id="name">&nbsp;</h2>
-			<ul id="product" class="iArrow iShop">
-				<li class="iMore"><a href="#_Article" title="Let's try...">More (does nothing)</a></li>
-			</ul>
-		</div>
-	</div>
-
-	<div class="iLayer" id="waStore" title="My Store">
-		<div class="iList">
-			<h2>Shopping</h2>
-			<ul class="iArrow iShop">
-				<li><a href="#_Article">
-					<img src="/img/blank.gif" class="iFull" />
-					<em>Great item</em>
-					<big>This is the best ever
-						<small><img src="/img/stars.png" style="margin:4px"/> 3 reviews</small>
-					</big>
-				</a></li>
-
-				<li><a href="#_Article">
-					<img src="/img/blank.gif" class="iFull" />
-					<em>WebApp.Net</em>
-					<big>The best webapp micro-framework
-						<small><img src="/img/stars.png" style="margin:4px"/> 5 reviews</small>
-					</big>
-				</a></li>
-				<li class="iMore"><a href="#_Article" title="Let's try...">More (does nothing)</a></li>
-			</ul>
+	<div class="iLayer" id="waProduct" title="Async Viewer Demo">
+		<div class="iBlock">
+			<h1 id="name">&nbsp;</h1>
+			<p id="product">&nbsp;</p>
 		</div>
 	</div>
 
