@@ -64,6 +64,7 @@
 */
 		</script>
 		<script type="text/javascript">
+		  loader = '<div id="iLoader">Loading, please wait...</div>';
 		  results = [];
 			product = new Template('<li><a href="#_Product" onclick="loadStyle(#{index})"><img style="background: #D6DCE6 url(#{thumb}) center no-repeat;" src="/img/blank.gif" class="iFull" /><em>#{brand}&nbsp;</em><big>#{name}<small>#{priceLabel}</small></big></a></li>');
 			category = new Template('<li><a href="#_Products" onclick="loadProducts(\'#{cat}\',\'#{title}\')">#{name}</a></li>');
@@ -147,6 +148,7 @@
 			}
 			
 			function loadProducts(cat, title) {
+			  $('products').update(loader);
 				new Ajax.Request('/sssearch', {
 	                method: 'post',
 	                parameters: {
@@ -251,7 +253,7 @@
 		</div>
 	</div>
 	
-	<div class="iLayer" id="waProduct" title="Async Viewer Demo">
+	<div class="iLayer" id="waProduct" title="Shop">
 		<div class="iBlock">
 			<h1 id="name">&nbsp;</h1>
 			<p id="product">&nbsp;</p>
@@ -302,24 +304,7 @@
 
 		</form>
 	</div>
-
 	
-
-	<div class="iLayer" id="waArticle" title="Async Viewer Demo">
-		<div class="iBlock">
-			<h1>Nothing to Read</h1>
-			<p>No article have been loaded yet. Check asynchronous list to load an article.</p>
-		</div>
-	</div>
-	
-	<div class="iLayer" id="waMedia" title="Media Sample">
-		<div class="iList">
-			<ul class="iArrow">
-				<li><a href="Media/sample.mp3" rev="media"><img src="/img/image.png" height="29"/>MP3 audio file</a></li>
-				<li><a href="Media/sample_iPod.m4v" rev="media"><img src="/img/image.png" height="29"/>iPod sample video</a></li>
-			</ul>
-		</div>
-	</div>
 </div>
 </div></body>
 
